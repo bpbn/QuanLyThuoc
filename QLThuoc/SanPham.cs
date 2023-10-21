@@ -11,5 +11,7 @@ namespace QLThuoc
         private string MaSP { get; set; }
 
         public string ten { get; set; }
+
+        public int SL { get; set; }
     }
 }
