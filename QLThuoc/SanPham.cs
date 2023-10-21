@@ -9,5 +9,7 @@ namespace QLThuoc
     class SanPham
     {
         private string MaSP { get; set; }
+
+        public string ten { get; set; }
     }
 }
