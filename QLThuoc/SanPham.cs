@@ -8,5 +8,8 @@ namespace QLThuoc
 {
     class SanPham
     {
+        private string maSP;
+
+        public string MaSP { get => maSP; set => maSP = value; }
     }
 }
