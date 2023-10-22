@@ -1,2 +1,11 @@
 D:\Projects\C#\.NET\QLThuoc\QLThuoc\bin\Debug\QLThuoc.exe.config
 D:\HỌC\Github\QuanLyThuoc\QLThuoc\bin\Debug\QLThuoc.exe.config
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.csprojResolveAssemblyReference.cache
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.ChonThuoc.resources
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.DanhMuc.resources
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.Properties.Resources.resources
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.csproj.GenerateResource.Cache
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\bin\Debug\QLThuoc.exe
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\bin\Debug\QLThuoc.pdb
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.exe
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.pdb
