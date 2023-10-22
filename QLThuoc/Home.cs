@@ -12,9 +12,9 @@ using System.Data;
 
 namespace QLThuoc
 {
-    public partial class DanhMuc : Form
+    public partial class Home : Form
     {
-        public DanhMuc()
+        public Home()
         {
             InitializeComponent();
         }
@@ -25,9 +25,9 @@ namespace QLThuoc
             f.Show();
         }
 
-        private void btn_Home_Click(object sender, EventArgs e)
+        private void btn_Category_Click(object sender, EventArgs e)
         {
-            Home f = new Home();
+            DanhMuc f = new DanhMuc();
             this.Hide();
             f.Show();
         }

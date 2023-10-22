@@ -9,3 +9,4 @@ D:\HỌC\Github\QuanLyThuoc\QLThuoc\bin\Debug\QLThuoc.exe
 D:\HỌC\Github\QuanLyThuoc\QLThuoc\bin\Debug\QLThuoc.pdb
 D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.exe
 D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.pdb
+D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.Home.resources
