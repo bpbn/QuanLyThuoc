@@ -140,7 +140,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(1428, 603);
+            this.ClientSize = new System.Drawing.Size(1428, 713);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
