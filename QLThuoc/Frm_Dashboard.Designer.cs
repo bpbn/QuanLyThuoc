@@ -75,7 +75,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Chart_Top5Products = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Chart_GrossRevenue = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart_CHi = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart_Chi = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -86,7 +86,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Top5Products)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_GrossRevenue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_CHi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_Chi)).BeginInit();
             this.SuspendLayout();
             // 
             // dtp_StartDate
@@ -562,7 +562,7 @@
             title2.Text = "Tình hình doanh thu";
             this.Chart_GrossRevenue.Titles.Add(title2);
             // 
-            // chart_CHi
+            // chart_Chi
             // 
             chartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.MidnightBlue;
             chartArea3.AxisX.LineColor = System.Drawing.Color.MidnightBlue;
@@ -573,14 +573,14 @@
             chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.MidnightBlue;
             chartArea3.AxisY.TitleForeColor = System.Drawing.Color.MidnightBlue;
             chartArea3.Name = "ChartArea1";
-            this.chart_CHi.ChartAreas.Add(chartArea3);
+            this.chart_Chi.ChartAreas.Add(chartArea3);
             legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
             legend3.ForeColor = System.Drawing.Color.MidnightBlue;
             legend3.Name = "Legend1";
-            this.chart_CHi.Legends.Add(legend3);
-            this.chart_CHi.Location = new System.Drawing.Point(12, 471);
-            this.chart_CHi.Name = "chart_CHi";
-            this.chart_CHi.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
+            this.chart_Chi.Legends.Add(legend3);
+            this.chart_Chi.Location = new System.Drawing.Point(12, 471);
+            this.chart_Chi.Name = "chart_Chi";
+            this.chart_Chi.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
             series3.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.LeftRight;
             series3.BackSecondaryColor = System.Drawing.Color.Aquamarine;
             series3.BorderColor = System.Drawing.Color.Aquamarine;
@@ -592,16 +592,16 @@
             series3.LabelForeColor = System.Drawing.Color.White;
             series3.Legend = "Legend1";
             series3.Name = "Series1";
-            this.chart_CHi.Series.Add(series3);
-            this.chart_CHi.Size = new System.Drawing.Size(791, 233);
-            this.chart_CHi.TabIndex = 7;
-            this.chart_CHi.Text = "chart1";
+            this.chart_Chi.Series.Add(series3);
+            this.chart_Chi.Size = new System.Drawing.Size(791, 233);
+            this.chart_Chi.TabIndex = 7;
+            this.chart_Chi.Text = "chart1";
             title3.Alignment = System.Drawing.ContentAlignment.TopLeft;
             title3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             title3.ForeColor = System.Drawing.SystemColors.HotTrack;
             title3.Name = "Title1";
             title3.Text = "Tình hình chi";
-            this.chart_CHi.Titles.Add(title3);
+            this.chart_Chi.Titles.Add(title3);
             // 
             // Frm_Dashboard
             // 
@@ -609,7 +609,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AliceBlue;
             this.ClientSize = new System.Drawing.Size(1428, 713);
-            this.Controls.Add(this.chart_CHi);
+            this.Controls.Add(this.chart_Chi);
             this.Controls.Add(this.Chart_GrossRevenue);
             this.Controls.Add(this.Chart_Top5Products);
             this.Controls.Add(this.panel1);
@@ -644,7 +644,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Top5Products)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_GrossRevenue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_CHi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_Chi)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -683,6 +683,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataVisualization.Charting.Chart Chart_Top5Products;
         private System.Windows.Forms.DataVisualization.Charting.Chart Chart_GrossRevenue;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart_CHi;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_Chi;
     }
 }
