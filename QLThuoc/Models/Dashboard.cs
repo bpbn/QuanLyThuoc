@@ -9,12 +9,12 @@ using System.Globalization;
 
 namespace QLThuoc.Models
 {
-    public struct RevenueByDate
+    public struct DoanhThuTheoNgay
     {
         public string Date { get; set; }
         public decimal TotalAmount { get; set; }
     }
-    public struct expenditureByDate
+    public struct ChiTienTheoNgay
     {
         public string Date { get; set; }
         public decimal TotalAmount { get; set; }
@@ -23,21 +23,21 @@ namespace QLThuoc.Models
     public class Dashboard : DbConnection
     {
         //Fields & Properties
-        private DateTime startDate;
-        private DateTime endDate;
-        private int numberDays;
+        private DateTime NgayBD;
+        private DateTime NgayKT;
+        private int SoNgay;
 
-        public int numCustomers { get; private set; }
-        public int numSuppliers { get; private set; }
-        public int numProducts { get; private set; }
-        public List<KeyValuePair<String, int>> TopProductsList { get; private set; }
-        public List<KeyValuePair<String, int>> UnderstockList { get; private set; }
-        public List<RevenueByDate> GrossRevenueList { get; private set; }
-        public List<expenditureByDate> GrossExpenditureList { get; private set; }
-        public int NumOrders { get; set; }
-        public int NumDonNhap { get; set; }
-        public decimal TotalRevenue { get; set; }
-        public decimal TotalExpenditure { get; set; }
+        public int SoKhachHang { get; private set; }
+        public int SoNCC { get; private set; }
+        public int SoSP { get; private set; }
+        public List<KeyValuePair<String, int>> ListTopSP { get; private set; }
+        public List<KeyValuePair<String, int>> ListSPSapHetHang { get; private set; }
+        public List<DoanhThuTheoNgay> ListDoanhThu { get; private set; }
+        public List<ChiTienTheoNgay> ListChiTien { get; private set; }
+        public int SoDHX { get; set; }
+        public int SoDHN { get; set; }
+        public decimal TongDoanhThu { get; set; }
+        public decimal TongChiTien { get; set; }
 
         //Constructor
         public Dashboard()
@@ -45,7 +45,7 @@ namespace QLThuoc.Models
         }
 
         //private methods
-        private void GetNumberItems()
+        private void GetSoLuong()
         {
             using (var connection = GetConnection())
             {
@@ -55,32 +55,32 @@ namespace QLThuoc.Models
                     command.Connection = connection;
                     //Get ToTal Number of Customer
                     command.CommandText = "SELECT Count(*) from KHACHHANG";
-                    numCustomers = (int)command.ExecuteScalar();
+                    SoKhachHang = (int)command.ExecuteScalar();
 
                     //Get ToTal Number of Supplier
                     command.CommandText = "SELECT Count(*) from NHACUNGCAP";
-                    numSuppliers = (int)command.ExecuteScalar();
+                    SoNCC = (int)command.ExecuteScalar();
 
                     //Get ToTal Number of Products
                     command.CommandText = "SELECT Count(*) from SANPHAM";
-                    numProducts = (int)command.ExecuteScalar();
+                    SoSP = (int)command.ExecuteScalar();
 
                     //Get ToTal Number of Orders
                     command.CommandText = @"SELECT Count(*) FROM DONHANGXUAT WHERE NGAYLAP BETWEEN @fromDate AND @toDate";
-                    command.Parameters.Add("@fromDate", System.Data.SqlDbType.DateTime).Value = startDate;
-                    command.Parameters.Add("@toDate", System.Data.SqlDbType.DateTime).Value = endDate;
-                    NumOrders = (int)command.ExecuteScalar();
+                    command.Parameters.Add("@fromDate", System.Data.SqlDbType.DateTime).Value = NgayBD;
+                    command.Parameters.Add("@toDate", System.Data.SqlDbType.DateTime).Value = NgayKT;
+                    SoDHX = (int)command.ExecuteScalar();
 
                     //Get ToTal Number of Chi
                     command.CommandText = @"SELECT Count(*) FROM DONHANGNHAP WHERE NGAYLAP BETWEEN @fromDate AND @toDate";
-                    NumDonNhap = (int)command.ExecuteScalar();
+                    SoDHN = (int)command.ExecuteScalar();
                 }
             }
         }
-        private void GetOrderAnalisys()
+        private void GetQLDonHangXuat()
         {
-            GrossRevenueList = new List<RevenueByDate>();
-            TotalRevenue = 0;
+            ListDoanhThu = new List<DoanhThuTheoNgay>();
+            TongDoanhThu = 0;
             using (var connection = GetConnection())
             {
                 connection.Open();
@@ -88,24 +88,24 @@ namespace QLThuoc.Models
                 {
                     command.Connection = connection;
                     command.CommandText = @"SELECT NGAYLAP, SUM(TONGTIEN) from DONHANGXUAT WHERE NGAYLAP BETWEEN @fromDate AND @toDate GROUP BY NGAYLAP";
-                    command.Parameters.Add("@fromDate", System.Data.SqlDbType.DateTime).Value = startDate;
-                    command.Parameters.Add("@toDate", System.Data.SqlDbType.DateTime).Value = endDate;
+                    command.Parameters.Add("@fromDate", System.Data.SqlDbType.DateTime).Value = NgayBD;
+                    command.Parameters.Add("@toDate", System.Data.SqlDbType.DateTime).Value = NgayKT;
                     var reader = command.ExecuteReader();
                     var resultTable = new List<KeyValuePair<DateTime, decimal>>();
                     while (reader.Read())
                     {
                         string b = reader[1].ToString();
                         resultTable.Add(new KeyValuePair<DateTime, decimal>((DateTime)reader[0], decimal.Parse(b)));
-                        TotalRevenue += decimal.Parse(b);
+                        TongDoanhThu += decimal.Parse(b);
                     }
                     reader.Close();
 
                     //Group by day
-                    if (numberDays <= 30)
+                    if (SoNgay <= 30)
                     {
                         foreach (var item in resultTable)
                         {
-                            GrossRevenueList.Add(new RevenueByDate()
+                            ListDoanhThu.Add(new DoanhThuTheoNgay()
                             {
                                 Date = item.Key.ToString("dd MMM"),
                                 TotalAmount = item.Value
@@ -114,13 +114,13 @@ namespace QLThuoc.Models
                     }
 
                     //Group by weeks
-                    else if (numberDays <= 92)
+                    else if (SoNgay <= 92)
                     {
-                        GrossRevenueList = (from orderList in resultTable
+                        ListDoanhThu = (from orderList in resultTable
                                             group orderList by CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
                                             orderList.Key, CalendarWeekRule.FirstDay, DayOfWeek.Monday)
                                                 into order
-                                                select new RevenueByDate
+                                                select new DoanhThuTheoNgay
                                                 {
                                                     Date = "Week " + order.Key.ToString(),
                                                     TotalAmount = order.Sum(amount => amount.Value)
@@ -128,13 +128,13 @@ namespace QLThuoc.Models
                     }
 
                     //Group by months
-                    else if (numberDays <= (365 * 2))
+                    else if (SoNgay <= (365 * 2))
                     {
-                        bool isYear = numberDays <= 365 ? true : false;
-                        GrossRevenueList = (from orderList in resultTable
+                        bool isYear = SoNgay <= 365 ? true : false;
+                        ListDoanhThu = (from orderList in resultTable
                                             group orderList by orderList.Key.ToString("MMM yyyy")
                                                 into order
-                                                select new RevenueByDate
+                                                select new DoanhThuTheoNgay
                                                 {
                                                     Date = isYear ? order.Key.Substring(0, order.Key.IndexOf(" ")) : order.Key,
                                                     TotalAmount = order.Sum(amount => amount.Value)
@@ -144,10 +144,10 @@ namespace QLThuoc.Models
                     //Group by years
                     else
                     {
-                        GrossRevenueList = (from orderList in resultTable
+                        ListDoanhThu = (from orderList in resultTable
                                             group orderList by orderList.Key.ToString("yyyy")
                                                 into order
-                                                select new RevenueByDate
+                                                select new DoanhThuTheoNgay
                                                 {
                                                     Date = order.Key,
                                                     TotalAmount = order.Sum(amount => amount.Value)
@@ -156,10 +156,10 @@ namespace QLThuoc.Models
                 }
             }
         }
-        private void GetNhapHangAnalisys()
+        private void GetQLDonHangNhap()
         {
-            GrossExpenditureList = new List<expenditureByDate>();
-            TotalExpenditure = 0;
+            ListChiTien = new List<ChiTienTheoNgay>();
+            TongChiTien = 0;
             using (var connection = GetConnection())
             {
                 connection.Open();
@@ -167,24 +167,24 @@ namespace QLThuoc.Models
                 {
                     command.Connection = connection;
                     command.CommandText = @"SELECT NGAYLAP, SUM(TONGTIEN) from DONHANGNHAP WHERE NGAYLAP BETWEEN @fromDate AND @toDate GROUP BY NGAYLAP";
-                    command.Parameters.Add("@fromDate", System.Data.SqlDbType.DateTime).Value = startDate;
-                    command.Parameters.Add("@toDate", System.Data.SqlDbType.DateTime).Value = endDate;
+                    command.Parameters.Add("@fromDate", System.Data.SqlDbType.DateTime).Value = NgayBD;
+                    command.Parameters.Add("@toDate", System.Data.SqlDbType.DateTime).Value = NgayKT;
                     var reader = command.ExecuteReader();
                     var resultTable = new List<KeyValuePair<DateTime, decimal>>();
                     while (reader.Read())
                     {
                         string b = reader[1].ToString();
                         resultTable.Add(new KeyValuePair<DateTime, decimal>((DateTime)reader[0], decimal.Parse(b)));
-                        TotalExpenditure += decimal.Parse(b);
+                        TongChiTien += decimal.Parse(b);
                     }
                     reader.Close();
 
                     //Group by day
-                    if (numberDays <= 30)
+                    if (SoNgay <= 30)
                     {
                         foreach (var item in resultTable)
                         {
-                            GrossExpenditureList.Add(new expenditureByDate()
+                            ListChiTien.Add(new ChiTienTheoNgay()
                             {
                                 Date = item.Key.ToString("dd MMM"),
                                 TotalAmount = item.Value
@@ -193,13 +193,13 @@ namespace QLThuoc.Models
                     }
 
                     //Group by weeks
-                    else if (numberDays <= 92)
+                    else if (SoNgay <= 92)
                     {
-                        GrossExpenditureList = (from orderList in resultTable
+                        ListChiTien = (from orderList in resultTable
                                                 group orderList by CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
                                                 orderList.Key, CalendarWeekRule.FirstDay, DayOfWeek.Monday)
                                                     into order
-                                                    select new expenditureByDate
+                                                    select new ChiTienTheoNgay
                                                     {
                                                         Date = "Week " + order.Key.ToString(),
                                                         TotalAmount = order.Sum(amount => amount.Value)
@@ -207,13 +207,13 @@ namespace QLThuoc.Models
                     }
 
                     //Group by months
-                    else if (numberDays <= (365 * 2))
+                    else if (SoNgay <= (365 * 2))
                     {
-                        bool isYear = numberDays <= 365 ? true : false;
-                        GrossExpenditureList = (from orderList in resultTable
+                        bool isYear = SoNgay <= 365 ? true : false;
+                        ListChiTien = (from orderList in resultTable
                                                 group orderList by orderList.Key.ToString("MMM yyyy")
                                                     into order
-                                                    select new expenditureByDate
+                                                    select new ChiTienTheoNgay
                                                     {
                                                         Date = isYear ? order.Key.Substring(0, order.Key.IndexOf(" ")) : order.Key,
                                                         TotalAmount = order.Sum(amount => amount.Value)
@@ -223,10 +223,10 @@ namespace QLThuoc.Models
                     //Group by years
                     else
                     {
-                        GrossExpenditureList = (from orderList in resultTable
+                        ListChiTien = (from orderList in resultTable
                                                 group orderList by orderList.Key.ToString("yyyy")
                                                     into order
-                                                    select new expenditureByDate
+                                                    select new ChiTienTheoNgay
                                                     {
                                                         Date = order.Key,
                                                         TotalAmount = order.Sum(amount => amount.Value)
@@ -235,10 +235,10 @@ namespace QLThuoc.Models
                 }
             }
         }
-        private void GetProductAnalisys()
+        private void GetQLSanPham()
         {
-            TopProductsList = new List<KeyValuePair<string, int>>();
-            UnderstockList = new List<KeyValuePair<string, int>>();
+            ListTopSP = new List<KeyValuePair<string, int>>();
+            ListSPSapHetHang = new List<KeyValuePair<string, int>>();
             using (var connection = GetConnection())
             {
                 connection.Open();
@@ -247,12 +247,12 @@ namespace QLThuoc.Models
                     SqlDataReader reader;
                     command.Connection = connection;
                     command.CommandText = @"SELECT TOP 5 S.TENSP, SUM(C.SOLUONG) AS SL FROM CHITIETDONXUAT C JOIN SANPHAM S ON C.SANPHAM = S.MASP JOIN DONHANGXUAT D ON C.MADONHANG = D.MADONHANG WHERE NGAYLAP BETWEEN @fromDate AND @toDate GROUP BY S.TENSP ORDER BY SL DESC";
-                    command.Parameters.Add("@fromDate", System.Data.SqlDbType.DateTime).Value = startDate;
-                    command.Parameters.Add("@toDate", System.Data.SqlDbType.DateTime).Value = endDate;
+                    command.Parameters.Add("@fromDate", System.Data.SqlDbType.DateTime).Value = NgayBD;
+                    command.Parameters.Add("@toDate", System.Data.SqlDbType.DateTime).Value = NgayKT;
                     reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        TopProductsList.Add(new KeyValuePair<string, int>(reader[0].ToString(), (int)reader[1]));
+                        ListTopSP.Add(new KeyValuePair<string, int>(reader[0].ToString(), (int)reader[1]));
                     }
                     reader.Close();
 
@@ -261,7 +261,7 @@ namespace QLThuoc.Models
                     reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        UnderstockList.Add(new KeyValuePair<string, int>(reader[0].ToString(), (int)reader[1]));
+                        ListSPSapHetHang.Add(new KeyValuePair<string, int>(reader[0].ToString(), (int)reader[1]));
                     }
                     reader.Close();
                 }
@@ -269,19 +269,19 @@ namespace QLThuoc.Models
         }
 
         //public methods
-        public bool LoadData(DateTime startDate, DateTime endDate)
+        public bool LoadData(DateTime NgayBD, DateTime NgayKT)
         {
-            endDate = new DateTime(endDate.Year, endDate.Month, endDate.Day);
-            if (startDate != this.startDate || endDate != this.endDate)
+            NgayKT = new DateTime(NgayKT.Year, NgayKT.Month, NgayKT.Day);
+            if (NgayBD != this.NgayBD || NgayKT != this.NgayKT)
             {
-                this.startDate = startDate;
-                this.endDate = endDate;
-                this.numberDays = (endDate - startDate).Days;
+                this.NgayBD = NgayBD;
+                this.NgayKT = NgayKT;
+                this.SoNgay = (NgayKT - NgayBD).Days;
 
-                GetNumberItems();
-                GetOrderAnalisys();
-                GetProductAnalisys();
-                GetNhapHangAnalisys();
+                GetSoLuong();
+                GetQLDonHangXuat();
+                GetQLSanPham();
+                GetQLDonHangNhap();
 
                 return true;
             }

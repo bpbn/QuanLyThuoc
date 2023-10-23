@@ -36,32 +36,32 @@ namespace QLThuoc
             var refreshData = model.LoadData(dtp_StartDate.Value, dtp_EndDate.Value);
             if(refreshData)
             {
-                lb_NumOfOrders.Text = model.NumOrders.ToString();
-                lb_TongSoDonNhap.Text = model.NumDonNhap.ToString();
-                lb_TotalRevenue.Text = model.TotalRevenue.ToString() + "đ";
-                lb_TongChi.Text = model.TotalExpenditure.ToString() + "đ";
-                lb_TotalProfit.Text = (model.TotalRevenue - model.TotalExpenditure).ToString() + "đ";
+                lb_NumOfOrders.Text = model.SoDHX.ToString();
+                lb_TongSoDonNhap.Text = model.SoDHN.ToString();
+                lb_TotalRevenue.Text = model.TongDoanhThu.ToString() + "đ";
+                lb_TongChi.Text = model.TongChiTien.ToString() + "đ";
+                lb_TotalProfit.Text = (model.TongDoanhThu - model.TongChiTien).ToString() + "đ";
 
-                lb_NumOfCustomers.Text = model.numCustomers.ToString();
-                lb_NumOfSuppliers.Text = model.numSuppliers.ToString();
-                lb_NumOfProducts.Text = model.numProducts.ToString();
+                lb_NumOfCustomers.Text = model.SoKhachHang.ToString();
+                lb_NumOfSuppliers.Text = model.SoNCC.ToString();
+                lb_NumOfProducts.Text = model.SoSP.ToString();
 
-                Chart_GrossRevenue.DataSource = model.GrossRevenueList;
+                Chart_GrossRevenue.DataSource = model.ListDoanhThu;
                 Chart_GrossRevenue.Series[0].XValueMember = "Date";
                 Chart_GrossRevenue.Series[0].YValueMembers = "TotalAmount";
                 Chart_GrossRevenue.DataBind();
 
-                chart_Chi.DataSource = model.GrossExpenditureList;
+                chart_Chi.DataSource = model.ListChiTien;
                 chart_Chi.Series[0].XValueMember = "Date";
                 chart_Chi.Series[0].YValueMembers = "TotalAmount";
                 chart_Chi.DataBind();
 
-                Chart_Top5Products.DataSource = model.TopProductsList;
+                Chart_Top5Products.DataSource = model.ListTopSP;
                 Chart_Top5Products.Series[0].XValueMember = "Key";
                 Chart_Top5Products.Series[0].YValueMembers = "Value";
                 Chart_Top5Products.DataBind();
 
-                dataGridView1.DataSource = model.UnderstockList;
+                dataGridView1.DataSource = model.ListSPSapHetHang;
                 dataGridView1.Columns[0].HeaderText = "Tên sản phẩm";
                 dataGridView1.Columns[1].HeaderText = "Sl";
             }
