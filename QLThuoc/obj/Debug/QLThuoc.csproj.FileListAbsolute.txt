@@ -10,3 +10,15 @@ D:\HỌC\Github\QuanLyThuoc\QLThuoc\bin\Debug\QLThuoc.pdb
 D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.exe
 D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.pdb
 D:\HỌC\Github\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.Home.resources
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\bin\Debug\QLThuoc.exe.config
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.exe
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.pdb
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.csprojResolveAssemblyReference.cache
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.ChonThuoc.resources
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.Frm_Dashboard.resources
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.Home.resources
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.DanhMuc.resources
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.Properties.Resources.resources
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\obj\Debug\QLThuoc.csproj.GenerateResource.Cache
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\bin\Debug\QLThuoc.exe
+D:\.net\QL_Thuoc\QuanLyThuoc\QLThuoc\bin\Debug\QLThuoc.pdb

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QLThuoc
+namespace QLThuoc.Models
 {
     class SanPham
     {
