@@ -51,10 +51,10 @@ namespace QLThuoc
                 Chart_GrossRevenue.Series[0].YValueMembers = "TotalAmount";
                 Chart_GrossRevenue.DataBind();
 
-                chart_CHi.DataSource = model.GrossExpenditureList;
-                chart_CHi.Series[0].XValueMember = "Date";
-                chart_CHi.Series[0].YValueMembers = "TotalAmount";
-                chart_CHi.DataBind();
+                chart_Chi.DataSource = model.GrossExpenditureList;
+                chart_Chi.Series[0].XValueMember = "Date";
+                chart_Chi.Series[0].YValueMembers = "TotalAmount";
+                chart_Chi.DataBind();
 
                 Chart_Top5Products.DataSource = model.TopProductsList;
                 Chart_Top5Products.Series[0].XValueMember = "Key";
