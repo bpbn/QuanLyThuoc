@@ -12,20 +12,20 @@ using System.Data;
 
 namespace QLThuoc
 {
-    public partial class Home : Form
+    public partial class TrangChu : Form
     {
-        public Home()
+        public TrangChu()
         {
             InitializeComponent();
         }
 
-        private void btn_Sell_Click(object sender, EventArgs e)
+        private void btn_BanHang_Click(object sender, EventArgs e)
         {
             ChonThuoc f = new ChonThuoc();
             f.Show();
         }
 
-        private void btn_Category_Click(object sender, EventArgs e)
+        private void btn_DanhMuc_Click(object sender, EventArgs e)
         {
             DanhMuc f = new DanhMuc();
             this.Hide();

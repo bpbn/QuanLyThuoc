@@ -19,18 +19,20 @@ namespace QLThuoc
             InitializeComponent();
         }
 
-        private void btn_Sell_Click(object sender, EventArgs e)
+        private void btn_BanHang_Click(object sender, EventArgs e)
         {
             ChonThuoc f = new ChonThuoc();
             f.Show();
         }
 
-        private void btn_Home_Click(object sender, EventArgs e)
+        private void btn_TrangChu_Click(object sender, EventArgs e)
         {
-            Home f = new Home();
+            TrangChu f = new TrangChu();
             this.Hide();
             f.Show();
         }
+
+        
 
         
 
